@@ -79,12 +79,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="frmMain.cpp" />
+    <ClCompile Include="frmRegistroAsistencia.cpp" />
     <ClCompile Include="frmRegistroCurso.cpp" />
     <ClCompile Include="frmRegistroDocente.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="estructuras.h" />
     <ClInclude Include="frmMain.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="frmRegistroAsistencia.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="frmRegistroCurso.h">
@@ -98,6 +102,9 @@
   <ItemGroup>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRegistroAsistencia.resx">
+      <DependentUpon>frmRegistroAsistencia.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRegistroCurso.resx">
       <DependentUpon>frmRegistroCurso.h</DependentUpon>

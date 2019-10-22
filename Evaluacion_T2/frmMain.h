@@ -38,6 +38,7 @@ namespace Evaluacion_T2 {
 	private: System::Windows::Forms::ToolStripMenuItem^  registroToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  cursoToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  docenteToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  asistenciaToolStripMenuItem;
 	protected:
 
 	private:
@@ -57,6 +58,7 @@ namespace Evaluacion_T2 {
 			this->registroToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->cursoToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->docenteToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->asistenciaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -71,9 +73,9 @@ namespace Evaluacion_T2 {
 			// 
 			// registroToolStripMenuItem
 			// 
-			this->registroToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+			this->registroToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->cursoToolStripMenuItem,
-					this->docenteToolStripMenuItem
+					this->docenteToolStripMenuItem, this->asistenciaToolStripMenuItem
 			});
 			this->registroToolStripMenuItem->Name = L"registroToolStripMenuItem";
 			this->registroToolStripMenuItem->Size = System::Drawing::Size(62, 20);
@@ -93,6 +95,13 @@ namespace Evaluacion_T2 {
 			this->docenteToolStripMenuItem->Text = L"Docente";
 			this->docenteToolStripMenuItem->Click += gcnew System::EventHandler(this, &frmMain::docenteToolStripMenuItem_Click);
 			// 
+			// asistenciaToolStripMenuItem
+			// 
+			this->asistenciaToolStripMenuItem->Name = L"asistenciaToolStripMenuItem";
+			this->asistenciaToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->asistenciaToolStripMenuItem->Text = L"Asistencia";
+			this->asistenciaToolStripMenuItem->Click += gcnew System::EventHandler(this, &frmMain::asistenciaToolStripMenuItem_Click);
+			// 
 			// frmMain
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -102,6 +111,8 @@ namespace Evaluacion_T2 {
 			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"frmMain";
 			this->Text = L"frmMain";
+			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
+			this->Load += gcnew System::EventHandler(this, &frmMain::frmMain_Load);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
@@ -111,11 +122,21 @@ namespace Evaluacion_T2 {
 #pragma endregion
 	private: System::Void cursoToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 				 frmRegistroCurso ^x = gcnew frmRegistroCurso;
+				 x->MdiParent = this;
 				 x->Show();
 	}
 	private: System::Void docenteToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 				 frmRegistroDocente ^x = gcnew frmRegistroDocente;
+				 x->MdiParent = this;
 				 x->Show();
 	}
-	};
+	private: System::Void asistenciaToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+				 frmRegistroAsistencia  ^x = gcnew frmRegistroAsistencia;
+				 x->MdiParent = this;
+				 x->Show();
+	}
+	private: System::Void frmMain_Load(System::Object^  sender, System::EventArgs^  e) {
+				 this->IsMdiContainer = true;
+	}
+};
 }

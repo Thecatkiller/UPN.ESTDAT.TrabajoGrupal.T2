@@ -20,6 +20,7 @@ int limitePilaDocente = 200, topePilaDocente = 0;
 #include "funciones.h"
 
 
+#include "frmRegistroAsistencia.h"
 #include "frmRegistroDocente.h"
 #include "frmRegistroCurso.h"
 #include "frmMain.h"

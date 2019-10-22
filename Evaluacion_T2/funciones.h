@@ -177,6 +177,12 @@ char *StringToChar(System::Windows::Forms::TextBox^ textBox) {
 	return r;
 }
 
+char *StringToChar(String^ val) {
+	IntPtr ptrToNativeString = Marshal::StringToHGlobalAnsi(val);
+	char* r = static_cast<char*>(ptrToNativeString.ToPointer());
+	return r;
+}
+
 void limpiarTextBoxs(System::Windows::Forms::Control::ControlCollection ^ controls) {
 	for each (Object ^ c in controls)
 	{
