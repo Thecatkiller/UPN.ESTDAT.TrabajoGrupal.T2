@@ -81,6 +81,30 @@ Curso desaPilar(int &tope, NodoSCurso *&Ini, NodoSCurso *&Fin) {
 	}
 	return dato;
 }
+
+void apilar(int &tope, int limite, NodoSDocente *&pilaI, NodoSDocente *&pilaF, Docente dato) {
+	if (!estaLlena(tope, limite)) {
+		insertarNodo(pilaI, pilaF, dato);
+		tope++;
+	}
+}
+
+Docente desaPilar(int &tope, NodoSDocente *&Ini, NodoSDocente *&Fin) {
+	Docente dato;
+	if (Fin != NULL) dato = Fin->dato;
+	if (!estaVacia(tope)) {
+		if (Ini == Fin && Ini != NULL) Ini = Fin = NULL;
+		else {
+			NodoSDocente *x = Ini;
+			for (; x->puntero != Fin; x = x->puntero);
+			Fin = x;
+			Fin->puntero = NULL;
+		}
+		tope--;
+	}
+	return dato;
+}
+
 #pragma endregion Pilas_Simples
 #pragma region Colas_Simples
 void enColar(int &tope, int limite, NodoSCurso *&Ini, NodoSCurso *&Fin, Curso dato)
@@ -107,10 +131,34 @@ Curso desenColar(int &tope, NodoSCurso *&Ini, NodoSCurso *&Fin) {
 	return dato;
 }
 
+void enColar(int &tope, int limite, NodoSDocente *&Ini, NodoSDocente *&Fin, Docente dato)
+{
+	if (!estaLlena(tope, limite))
+	{
+		insertarNodo(Ini, Fin, dato);
+		tope++;
+	}
+}
+
+
+
+Docente desenColar(int &tope, NodoSDocente *&Ini, NodoSDocente *&Fin) {
+	Docente dato;
+	if (Ini != NULL) dato = Ini->dato;
+	if (!estaVacia(tope)) {
+		if (Ini == Fin && Ini != NULL) Ini = Fin = NULL;
+		else {
+			Ini = Ini->puntero;
+		}
+		tope--;
+	}
+	return dato;
+}
+
 #pragma endregion Colas_Simples
 
 
-
+#pragma region Otras_Funciones
 string ZeroPadNumber(int num, int length = 9)
 {
 	std::string s = std::to_string(num);
@@ -138,6 +186,8 @@ void limpiarTextBoxs(System::Windows::Forms::Control::ControlCollection ^ contro
 		}
 	}
 }
+
+#pragma endregion Otras_Funciones
 
 #pragma region Setters
 Curso setCurso(char* codigo, char* nombre, int creditos){
@@ -167,4 +217,7 @@ void SetDefaultData(){
 	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000006", "Base de datos", 4));
 	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000007", "Taller de base de datos", 4));
 	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000008", "Técnicas de programación orientada a objetos", 4));
+
+	apilar(topePilaDocente, limitePilaDocente, PilaDocenteI, PilaDocenteF, setDocente("D00001", "Charles Dummar Camasca", 25));
+	apilar(topePilaDocente, limitePilaDocente, PilaDocenteI, PilaDocenteF, setDocente("D00002", "Paulo Cesar Olivares Taipe", 23));
 }
