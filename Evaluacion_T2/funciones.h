@@ -204,7 +204,7 @@ Curso setCurso(char* codigo, char* nombre, int creditos){
 	return curso;
 }
 
-Docente setDocente(char *codigo,char *nombreAP,double sueldoxhora){
+Docente setDocente(char *codigo, char *nombreAP, double sueldoxhora){
 	Docente d;
 	strcpy(d.codigo, codigo);
 	strcpy(d.nombresAP, nombreAP);
@@ -213,6 +213,30 @@ Docente setDocente(char *codigo,char *nombreAP,double sueldoxhora){
 }
 
 #pragma endregion Setters
+
+Curso buscarPilaCurso(int tope, int limite, NodoSCurso *&IniPila, NodoSCurso *&FinPila, Curso dato){
+	Curso datoR;
+
+	int ta = 0;
+	NodoSCurso *Ini, *Fin;
+	Ini = NULL, Fin = NULL;
+
+	while (!estaVacia(tope))
+	{
+		Curso ex = desaPilar(tope, IniPila, FinPila);
+		if (strcmp(datoR.codigo, ex.codigo) == 0)
+			datoR = ex;
+
+		apilar(ta, limite, Ini, Fin, ex);
+	}
+	while (!estaVacia(ta))
+	{
+		Curso ex = desaPilar(ta, Ini, Fin);
+		apilar(tope, limite, IniPila, FinPila, ex);
+	}
+
+	return datoR;
+}
 
 void SetDefaultData(){
 	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000001", "Cálculo I", 5));

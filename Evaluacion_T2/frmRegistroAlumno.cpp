@@ -1,0 +1,2 @@
+#include "frmRegistroAlumno.h"
+
