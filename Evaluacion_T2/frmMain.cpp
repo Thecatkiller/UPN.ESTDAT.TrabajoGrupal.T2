@@ -16,10 +16,12 @@ int limitePilaCurso = 500, topePilaCurso = 0;
 NodoSDocente *PilaDocenteI, *PilaDocenteF;
 int limitePilaDocente = 200, topePilaDocente = 0;
 
+NodoDAlumno *ColaDAlumnoI, *ColaDAlumnoD;
+int limiteColaDAlumno = 100, topeColaDAlumno = 0;
 
 #include "funciones.h"
 
-
+#include "frmRegistroAlumno.h"
 #include "frmRegistroAsistencia.h"
 #include "frmRegistroDocente.h"
 #include "frmRegistroCurso.h"
