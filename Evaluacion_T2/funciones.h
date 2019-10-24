@@ -275,6 +275,36 @@ Alumno desenColarDI(int &tope, NodoDAlumno *&I, NodoDAlumno *&D) {
 }
 
 
+Registro desenColarID(int &tope, NodoDRegistro *&I, NodoDRegistro *&D) {
+	Registro dato;
+	if (I != NULL) dato = I->dato;
+	if (!estaVacia(tope)) {
+		if (I == D && I != NULL) I = D = NULL;
+		else {
+			I = I->der;
+			I->izq = NULL;
+		}
+		tope--;
+	}
+	return dato;
+}
+
+Registro desenColarDI(int &tope, NodoDRegistro *&I, NodoDRegistro *&D) {
+	Registro dato;
+	if (D != NULL) dato = D->dato;
+	if (!estaVacia(tope)) {
+		if (I == D && D != NULL) I = D = NULL;
+		else {
+			D = D->izq;
+			D->der = NULL;
+		}
+		tope--;
+	}
+	return dato;
+}
+
+
+
 Alumno desapilarDI(int &tope, NodoDAlumno *&I, NodoDAlumno *&D) {
 	return desenColarID(tope, I, D);
 }
@@ -423,7 +453,7 @@ Alumno buscarColaDAlumno(int tope, int limite, NodoDAlumno *&IniPila, NodoDAlumn
 
 #pragma endregion Busquedas
 
-
+#pragma region Comparacion
 int compararElementos(Alumno al1, Alumno al2)
 {
 	int a = strcmpi(al1.Apellido, al2.Apellido);
@@ -436,6 +466,21 @@ int compararElementos(Alumno al1, Alumno al2)
 
 	return a;
 }
+
+int compararElementos(Registro r1, Registro r2)
+{
+	long f1 = DateTime(r1.HI.año, r1.HI.mes, r1.HI.dia, r1.HI.dia, r1.HI.minuto, 0).Ticks;
+	long f2 = DateTime(r1.HS.año, r1.HS.mes, r1.HS.dia, r1.HS.dia, r1.HS.minuto, 0).Ticks;
+
+	if (f1 < f2){
+		return -1;
+	}
+	else{
+		return +1;
+	}
+}
+#pragma endregion Comparacion
+
 void EncolarAlumnoOrdenadamente(int &tope, int limite, NodoDAlumno *&I, NodoDAlumno *&D, Alumno dato){
 	bool yaSeAgrego = false;
 	if (estaVacia(tope)){
@@ -478,12 +523,12 @@ void EncolarAlumnoOrdenadamente(int &tope, int limite, NodoDAlumno *&I, NodoDAlu
 				else{
 
 					a = compararElementos(D->dato, dato);
-					if (yaSeAgrego == false){
-						if (a > 0)
-							enColarDI(tope, limite, I, D, dato);
-						else
-							enColarID(tope, limite, I, D, dato);
-					}
+					if (yaSeAgrego == false)
+					if (a > 0)
+						enColarDI(tope, limite, I, D, dato);
+					else
+						enColarID(tope, limite, I, D, dato);
+
 					enColarID(tope, limite, I, D, ex);
 
 					yaSeAgrego = true;
@@ -491,9 +536,9 @@ void EncolarAlumnoOrdenadamente(int &tope, int limite, NodoDAlumno *&I, NodoDAlu
 
 
 			}
-			if (yaSeAgrego == false){
+			if (yaSeAgrego == false)
 				enColarID(tope, limite, I, D, dato);
-			}
+
 		}
 
 
@@ -502,6 +547,72 @@ void EncolarAlumnoOrdenadamente(int &tope, int limite, NodoDAlumno *&I, NodoDAlu
 
 }
 
+
+void EncolarRegistroOrdenadamente(int &tope, int limite, NodoDRegistro *&I, NodoDRegistro *&D, Registro dato){
+	bool yaSeAgrego = false;
+	if (estaVacia(tope)){
+		enColarID(tope, limite, I, D, dato);
+	}
+	else{
+
+		int ta = 0;
+		int topeTotal = tope;
+		NodoDRegistro *Izq, *Der;
+		Izq = NULL, Der = NULL;
+		Registro registro;
+
+		while (!estaVacia(tope))
+		{
+			registro = desenColarDI(tope, I, D);
+			enColarDI(ta, limite, Izq, Der, registro);
+		}
+
+
+		enColarID(tope, limite, I, D, registro);
+		if (ta == 1){
+			int a = compararElementos(registro, dato);
+			if (a < 0)
+				enColarID(tope, limite, I, D, dato);
+			else
+				enColarDI(tope, limite, I, D, dato);
+		}
+		else{
+			char *apellido;
+
+			Registro ex = desenColarID(ta, Izq, Der);
+			while (!estaVacia(ta)){
+
+				ex = desenColarID(ta, Izq, Der);
+
+				int a = compararElementos(dato, ex);
+				if (a > 0)
+					enColarID(tope, limite, I, D, ex);
+				else{
+
+					a = compararElementos(D->dato, dato);
+					if (yaSeAgrego == false)
+					if (a > 0)
+						enColarDI(tope, limite, I, D, dato);
+					else
+						enColarID(tope, limite, I, D, dato);
+
+					enColarID(tope, limite, I, D, ex);
+
+					yaSeAgrego = true;
+				}
+
+
+			}
+			if (yaSeAgrego == false)
+				enColarID(tope, limite, I, D, dato);
+
+		}
+
+
+	}
+
+
+}
 
 void SetDefaultData(){
 	//EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "A", "5", 0));
