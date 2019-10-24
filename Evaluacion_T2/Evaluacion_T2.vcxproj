@@ -134,6 +134,9 @@
     <EmbeddedResource Include="frmRegistroDocente.resx">
       <DependentUpon>frmRegistroDocente.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmReporteProfesor.resx">
+      <DependentUpon>frmReporteProfesor.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

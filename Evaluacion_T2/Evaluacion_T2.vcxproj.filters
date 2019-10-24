@@ -88,5 +88,8 @@
     <EmbeddedResource Include="frmRegistroAlumno.resx">
       <Filter>Archivos de recursos</Filter>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmBuscarAlumno.resx">
+      <Filter>Archivos de recursos</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

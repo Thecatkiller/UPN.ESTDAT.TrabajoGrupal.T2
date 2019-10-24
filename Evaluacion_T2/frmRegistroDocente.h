@@ -182,7 +182,7 @@ namespace Evaluacion_T2 {
 					 dgvLista->Rows->Add(
 						 gcnew String(ex.codigo),
 						 gcnew String(ex.nombresAP),
-						 ex.sueldoxHora.ToString("N2")
+						 "S/ " + ex.sueldoxHora.ToString("N2")
 						 );
 
 					 apilar(ta, limitePilaDocente, Ini, Fin, ex);

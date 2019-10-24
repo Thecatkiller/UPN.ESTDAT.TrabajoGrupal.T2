@@ -175,6 +175,14 @@ void enColar(int &tope, int limite, NodoSCurso *&Ini, NodoSCurso *&Fin, Curso da
 	}
 }
 
+void enColar(int &tope, int limite, NodoSRegistro *&Ini, NodoSRegistro *&Fin, Registro dato)
+{
+	if (!estaLlena(tope, limite))
+	{
+		insertarNodo(Ini, Fin, dato);
+		tope++;
+	}
+}
 
 
 Curso desenColar(int &tope, NodoSCurso *&Ini, NodoSCurso *&Fin) {
@@ -451,6 +459,38 @@ Alumno buscarColaDAlumno(int tope, int limite, NodoDAlumno *&IniPila, NodoDAlumn
 	return datoR;
 }
 
+NodoSRegistro* buscarRegistrosPorDocente(int tope, int limite, NodoDRegistro *&IniPila, NodoDRegistro *&FinPila, char* codigoDocente){
+
+	NodoSRegistro* lRegistroIni = NULL;
+	NodoSRegistro* lRegistroFin = NULL;
+	int lAux = limite;
+	int topeAux = 0;
+
+	Registro datoR;
+
+	int ta = 0;
+	NodoDRegistro *Ini, *Fin;
+	Ini = NULL, Fin = NULL;
+
+	while (!estaVacia(tope))
+	{
+		Registro ex = desenColarID(tope, IniPila, FinPila);
+		if (strcmp(ex.unDocente.codigo, codigoDocente) == 0)
+		{
+			enColar(topeAux, lAux, lRegistroIni, lRegistroFin, ex);
+		}
+
+		enColarID(ta, limite, Ini, Fin, ex);
+	}
+	while (!estaVacia(ta))
+	{
+		Registro ex = desenColarID(ta, Ini, Fin);
+		enColarID(tope, limite, IniPila, FinPila, ex);
+	}
+
+	return lRegistroIni;
+}
+
 #pragma endregion Busquedas
 
 #pragma region Comparacion
@@ -469,8 +509,8 @@ int compararElementos(Alumno al1, Alumno al2)
 
 int compararElementos(Registro r1, Registro r2)
 {
-	long f1 = DateTime(r1.HI.año, r1.HI.mes, r1.HI.dia, r1.HI.dia, r1.HI.minuto, 0).Ticks;
-	long f2 = DateTime(r1.HS.año, r1.HS.mes, r1.HS.dia, r1.HS.dia, r1.HS.minuto, 0).Ticks;
+	long f1 = DateTime(r1.HI.año, r1.HI.mes, r1.HI.dia, r1.HI.hora, r1.HI.minuto, 0).Ticks;
+	long f2 = DateTime(r1.HS.año, r1.HS.mes, r1.HS.dia, r1.HS.hora, r1.HS.minuto, 0).Ticks;
 
 	if (f1 < f2){
 		return -1;
@@ -483,9 +523,8 @@ int compararElementos(Registro r1, Registro r2)
 
 void EncolarAlumnoOrdenadamente(int &tope, int limite, NodoDAlumno *&I, NodoDAlumno *&D, Alumno dato){
 	bool yaSeAgrego = false;
-	if (estaVacia(tope)){
+	if (estaVacia(tope))
 		enColarID(tope, limite, I, D, dato);
-	}
 	else{
 
 		int ta = 0;
@@ -550,9 +589,8 @@ void EncolarAlumnoOrdenadamente(int &tope, int limite, NodoDAlumno *&I, NodoDAlu
 
 void EncolarRegistroOrdenadamente(int &tope, int limite, NodoDRegistro *&I, NodoDRegistro *&D, Registro dato){
 	bool yaSeAgrego = false;
-	if (estaVacia(tope)){
+	if (estaVacia(tope))
 		enColarID(tope, limite, I, D, dato);
-	}
 	else{
 
 		int ta = 0;
@@ -600,7 +638,6 @@ void EncolarRegistroOrdenadamente(int &tope, int limite, NodoDRegistro *&I, Nodo
 
 					yaSeAgrego = true;
 				}
-
 
 			}
 			if (yaSeAgrego == false)

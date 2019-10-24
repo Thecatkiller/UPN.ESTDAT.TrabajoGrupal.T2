@@ -56,6 +56,9 @@ namespace Evaluacion_T2 {
 	private: System::Windows::Forms::Label^  label4;
 	private: System::Windows::Forms::DateTimePicker^  dtInicio;
 	private: System::Windows::Forms::DateTimePicker^  dtFin;
+	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::DateTimePicker^  dtFecha;
+
 
 
 
@@ -97,6 +100,8 @@ namespace Evaluacion_T2 {
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->dtInicio = (gcnew System::Windows::Forms::DateTimePicker());
 			this->dtFin = (gcnew System::Windows::Forms::DateTimePicker());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->dtFecha = (gcnew System::Windows::Forms::DateTimePicker());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvLista))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -208,7 +213,7 @@ namespace Evaluacion_T2 {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(22, 105);
+			this->label3->Location = System::Drawing::Point(194, 105);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(32, 13);
 			this->label3->TabIndex = 8;
@@ -217,7 +222,7 @@ namespace Evaluacion_T2 {
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(258, 105);
+			this->label4->Location = System::Drawing::Point(331, 105);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(21, 13);
 			this->label4->TabIndex = 9;
@@ -225,25 +230,44 @@ namespace Evaluacion_T2 {
 			// 
 			// dtInicio
 			// 
-			this->dtInicio->Format = System::Windows::Forms::DateTimePickerFormat::Time;
-			this->dtInicio->Location = System::Drawing::Point(79, 102);
+			this->dtInicio->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
+			this->dtInicio->Location = System::Drawing::Point(232, 102);
 			this->dtInicio->Name = L"dtInicio";
 			this->dtInicio->Size = System::Drawing::Size(93, 20);
 			this->dtInicio->TabIndex = 10;
 			// 
 			// dtFin
 			// 
-			this->dtFin->Format = System::Windows::Forms::DateTimePickerFormat::Time;
-			this->dtFin->Location = System::Drawing::Point(297, 102);
+			this->dtFin->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
+			this->dtFin->Location = System::Drawing::Point(358, 102);
 			this->dtFin->Name = L"dtFin";
 			this->dtFin->Size = System::Drawing::Size(93, 20);
 			this->dtFin->TabIndex = 11;
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(24, 105);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(37, 13);
+			this->label5->TabIndex = 12;
+			this->label5->Text = L"Fecha";
+			// 
+			// dtFecha
+			// 
+			this->dtFecha->Format = System::Windows::Forms::DateTimePickerFormat::Short;
+			this->dtFecha->Location = System::Drawing::Point(80, 102);
+			this->dtFecha->Name = L"dtFecha";
+			this->dtFecha->Size = System::Drawing::Size(82, 20);
+			this->dtFecha->TabIndex = 13;
 			// 
 			// frmRegistroAsistencia
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(614, 517);
+			this->Controls->Add(this->dtFecha);
+			this->Controls->Add(this->label5);
 			this->Controls->Add(this->dtFin);
 			this->Controls->Add(this->dtInicio);
 			this->Controls->Add(this->label4);
@@ -269,8 +293,8 @@ namespace Evaluacion_T2 {
 	private: System::Void frmRegistroAsistencia_Load(System::Object^  sender, System::EventArgs^  e) {
 				 cargarComboBoxCurso();
 				 cargarComboBoxDocente();
-
-
+				 dtInicio->CustomFormat = "hh:mm tt";
+				 dtFin->CustomFormat = "hh:mm tt";
 	}
 	private:void cargarComboBoxCurso(){
 				Dictionary<String^, String^> ^diccionarioCurso = gcnew Dictionary<String^, String^>();
@@ -343,6 +367,23 @@ namespace Evaluacion_T2 {
 					 //NodoDAlumno *AI, *AD;
 					 registro.I = registro.D = NULL;
 
+					 for (int i = 0; i < topeAuxColaDAlumno; i++)
+					 {
+						 String^ value = dgvLista[3, ta]->FormattedValue->ToString();
+
+						 int estado = -1;
+						 if (value == "Asistió")
+							 estado = 1;
+						 else if (value == "Tardanza")
+							 estado = 2;
+						 else if (value == "Falta")
+							 estado = 3;
+						 if (estado == -1){
+							 MessageBox::Show("Debe elegir un estado para todos los alumnos");
+							 return;
+						 }
+					 }
+
 					 while (!estaVacia(topeAuxColaDAlumno))
 					 {
 						 Alumno ex = desenColarID(topeAuxColaDAlumno, ColaDAlumnoAuxI, ColaDAlumnoAuxD);
@@ -357,6 +398,8 @@ namespace Evaluacion_T2 {
 						 else if (value == "Falta")
 							 estado = 3;
 
+
+
 						 ex.estado = estado;
 
 						 enColarID(registro.tope, registro.lim, registro.I, registro.D, ex);
@@ -364,23 +407,41 @@ namespace Evaluacion_T2 {
 						 enColarID(ta, limiteAuxColaDAlumno, I, D, ex);
 					 }
 
+					 registro.HI.año = dtFecha->Value.Year;
+					 registro.HI.mes = dtFecha->Value.Month;
+					 registro.HI.dia = dtFecha->Value.Day;
 					 registro.HI.hora = dtInicio->Value.Hour;
 					 registro.HI.minuto = dtInicio->Value.Minute;
 
+					 registro.HS.año = dtFecha->Value.Year;
+					 registro.HS.mes = dtFecha->Value.Month;
+					 registro.HS.dia = dtFecha->Value.Day;
 					 registro.HS.hora = dtFin->Value.Hour;
 					 registro.HS.minuto = dtFin->Value.Minute;
 
-					 registro.horas = DateTime(dtFin->Value.Ticks - dtInicio->Value.Ticks).Hour;
+					 if (registro.HS.hora == registro.HI.hora &&
+						 registro.HS.minuto == registro.HI.minuto){
+						 MessageBox::Show("La hora de inicio no puede ser igual a la de fin");
+						 return;
+					 }
+					 else if (dtFin->Value.Ticks - dtInicio->Value.Ticks < 0){
+						 MessageBox::Show("La hora de fin no puede ser menor a la de inicio");
+						 return;
+					 }
+
+					 registro.horas = DateTime(dtFin->Value.Ticks - dtInicio->Value.Ticks).Minute / 60;
 
 					 string codigo = "R" + ZeroPadNumber(topeColaDRegistro + 1, 7);
 					 strcpy(registro.codigo, codigo.c_str());
 
-					 //TODO encolar Ordenadamente
 
-					 enColarID(topeColaDRegistro, limiteColaDRegistro, ColaDRegistroI, ColaDRegistroD, registro);
+					 EncolarRegistroOrdenadamente(topeColaDRegistro, limiteColaDRegistro, ColaDRegistroI, ColaDRegistroD, registro);
+					 //enColarID(topeColaDRegistro, limiteColaDRegistro, ColaDRegistroI, ColaDRegistroD, registro);
 
 					 topeAuxColaDAlumno = 0;
 					 ColaDAlumnoAuxI = ColaDAlumnoAuxD = NULL;
+
+					 MessageBox::Show("Se guardó el registro satisfactoriamente");
 					 this->Close();
 				 }
 	}
