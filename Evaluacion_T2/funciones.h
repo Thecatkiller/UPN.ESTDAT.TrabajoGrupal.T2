@@ -459,6 +459,32 @@ Alumno buscarColaDAlumno(int tope, int limite, NodoDAlumno *&IniPila, NodoDAlumn
 	return datoR;
 }
 
+Alumno* buscarAlumnoEnColaD(int tope, int limite, NodoDAlumno *&IniPila, NodoDAlumno *&FinPila, char* codigo){
+	Alumno *datoEncontrado = NULL;
+	//Alumno datoR;
+
+	int ta = 0;
+	NodoDAlumno *Ini, *Fin;
+	Ini = NULL, Fin = NULL;
+
+	while (!estaVacia(tope))
+	{
+		Alumno ex = desenColarID(tope, IniPila, FinPila);
+		if (strcmp(ex.codigo, codigo) == 0){
+			//datoR = ex;
+			datoEncontrado = &ex;
+		}
+		enColarID(ta, limite, Ini, Fin, ex);
+	}
+	while (!estaVacia(ta))
+	{
+		Alumno ex = desenColarID(ta, Ini, Fin);
+		enColarID(tope, limite, IniPila, FinPila, ex);
+	}
+
+	return datoEncontrado;
+}
+
 NodoSRegistro* buscarRegistrosPorDocente(int tope, int limite, NodoDRegistro *&IniPila, NodoDRegistro *&FinPila, char* codigoDocente){
 
 	NodoSRegistro* lRegistroIni = NULL;
