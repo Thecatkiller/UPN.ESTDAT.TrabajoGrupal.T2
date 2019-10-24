@@ -78,14 +78,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="frmBuscarAlumno.cpp" />
     <ClCompile Include="frmMain.cpp" />
     <ClCompile Include="frmRegistroAlumno.cpp" />
     <ClCompile Include="frmRegistroAsistencia.cpp" />
     <ClCompile Include="frmRegistroCurso.cpp" />
     <ClCompile Include="frmRegistroDocente.cpp" />
+    <ClCompile Include="frmReporteAlumno.cpp" />
+    <ClCompile Include="frmReporteProfesor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="estructuras.h" />
+    <ClInclude Include="frmBuscarAlumno.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="frmMain.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -101,9 +107,18 @@
     <ClInclude Include="frmRegistroDocente.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="frmReporteAlumno.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="frmReporteProfesor.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="funciones.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmBuscarAlumno.resx">
+      <DependentUpon>frmBuscarAlumno.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.h</DependentUpon>
     </EmbeddedResource>

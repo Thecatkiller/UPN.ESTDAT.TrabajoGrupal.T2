@@ -1,5 +1,5 @@
 struct Fecha{
-	int d, m, a, h, min;
+	int dia, mes, año, hora, minuto;
 };
 struct Alumno{
 	char codigo[10], nombre[100], Apellido[100];
@@ -25,12 +25,14 @@ struct NodoDAlumno{
 
 
 struct Registro{
+	char codigo[10];
 	Fecha HI, HS;
 	Docente unDocente;
 	Curso unCurso;
 	NodoDAlumno *I, *D;
 	int tope = 0, lim = 60;
-	int horas;
+	double horas;
+	
 };
 
 struct NodoSCurso{
@@ -46,4 +48,9 @@ struct NodoSDocente{
 struct NodoSRegistro{
 	Registro dato;
 	NodoSRegistro *puntero;
+};
+
+struct NodoDRegistro{
+	Registro dato;
+	NodoDRegistro *izq, *der;
 };

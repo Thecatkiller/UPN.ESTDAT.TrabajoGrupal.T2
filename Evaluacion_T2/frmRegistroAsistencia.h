@@ -40,12 +40,28 @@ namespace Evaluacion_T2 {
 	private: System::Windows::Forms::Button^  btnGrabarRegistro;
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::ComboBox^  cmbDocente;
-	private: System::Windows::Forms::DataGridView^  dataGridView1;
+	private: System::Windows::Forms::DataGridView^  dgvLista;
+
+
+
+
+
+	private: System::Windows::Forms::Button^  btnBuscarAlumno;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  colCodigo;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  colApellidos;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  colNombres;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  colEstado;
-	private: System::Windows::Forms::Button^  btnBuscarAlumno;
+	private: System::Windows::Forms::DataGridViewComboBoxColumn^  colEstado;
+	private: System::Windows::Forms::Button^  btnNuevoRegistro;
+	private: System::Windows::Forms::Label^  label3;
+	private: System::Windows::Forms::Label^  label4;
+	private: System::Windows::Forms::DateTimePicker^  dtInicio;
+	private: System::Windows::Forms::DateTimePicker^  dtFin;
+
+
+
+
+
+
 
 
 
@@ -70,13 +86,18 @@ namespace Evaluacion_T2 {
 			this->btnGrabarRegistro = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->cmbDocente = (gcnew System::Windows::Forms::ComboBox());
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->dgvLista = (gcnew System::Windows::Forms::DataGridView());
 			this->colCodigo = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->colApellidos = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->colNombres = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->colEstado = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->colEstado = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
 			this->btnBuscarAlumno = (gcnew System::Windows::Forms::Button());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			this->btnNuevoRegistro = (gcnew System::Windows::Forms::Button());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->dtInicio = (gcnew System::Windows::Forms::DateTimePicker());
+			this->dtFin = (gcnew System::Windows::Forms::DateTimePicker());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvLista))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -99,7 +120,7 @@ namespace Evaluacion_T2 {
 			// 
 			// btnGrabarRegistro
 			// 
-			this->btnGrabarRegistro->Location = System::Drawing::Point(216, 463);
+			this->btnGrabarRegistro->Location = System::Drawing::Point(212, 463);
 			this->btnGrabarRegistro->Name = L"btnGrabarRegistro";
 			this->btnGrabarRegistro->Size = System::Drawing::Size(178, 42);
 			this->btnGrabarRegistro->TabIndex = 2;
@@ -125,46 +146,44 @@ namespace Evaluacion_T2 {
 			this->cmbDocente->Size = System::Drawing::Size(371, 21);
 			this->cmbDocente->TabIndex = 4;
 			// 
-			// dataGridView1
+			// dgvLista
 			// 
-			this->dataGridView1->AllowUserToAddRows = false;
-			this->dataGridView1->AllowUserToDeleteRows = false;
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
-				this->colCodigo,
-					this->colApellidos, this->colNombres, this->colEstado
+			this->dgvLista->AllowUserToAddRows = false;
+			this->dgvLista->AllowUserToDeleteRows = false;
+			this->dgvLista->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dgvLista->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+				this->colCodigo, this->colApellidos,
+					this->colNombres, this->colEstado
 			});
-			this->dataGridView1->Location = System::Drawing::Point(25, 163);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->ReadOnly = true;
-			this->dataGridView1->Size = System::Drawing::Size(547, 294);
-			this->dataGridView1->TabIndex = 5;
+			this->dgvLista->Location = System::Drawing::Point(25, 163);
+			this->dgvLista->Name = L"dgvLista";
+			this->dgvLista->Size = System::Drawing::Size(547, 294);
+			this->dgvLista->TabIndex = 5;
 			// 
 			// colCodigo
 			// 
-			this->colCodigo->HeaderText = L"Código";
+			this->colCodigo->HeaderText = L"Código Alumno";
 			this->colCodigo->Name = L"colCodigo";
-			this->colCodigo->ReadOnly = true;
 			// 
 			// colApellidos
 			// 
 			this->colApellidos->HeaderText = L"Apellidos";
 			this->colApellidos->Name = L"colApellidos";
-			this->colApellidos->ReadOnly = true;
 			this->colApellidos->Width = 150;
 			// 
 			// colNombres
 			// 
 			this->colNombres->HeaderText = L"Nombres";
 			this->colNombres->Name = L"colNombres";
-			this->colNombres->ReadOnly = true;
 			this->colNombres->Width = 150;
 			// 
 			// colEstado
 			// 
 			this->colEstado->HeaderText = L"Estado";
+			this->colEstado->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Asistió", L"Tardanza", L"Falta" });
 			this->colEstado->Name = L"colEstado";
-			this->colEstado->ReadOnly = true;
+			this->colEstado->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->colEstado->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::Automatic;
 			// 
 			// btnBuscarAlumno
 			// 
@@ -176,22 +195,72 @@ namespace Evaluacion_T2 {
 			this->btnBuscarAlumno->UseVisualStyleBackColor = true;
 			this->btnBuscarAlumno->Click += gcnew System::EventHandler(this, &frmRegistroAsistencia::btnBuscarAlumno_Click);
 			// 
+			// btnNuevoRegistro
+			// 
+			this->btnNuevoRegistro->Location = System::Drawing::Point(497, 12);
+			this->btnNuevoRegistro->Name = L"btnNuevoRegistro";
+			this->btnNuevoRegistro->Size = System::Drawing::Size(105, 23);
+			this->btnNuevoRegistro->TabIndex = 7;
+			this->btnNuevoRegistro->Text = L"Nuevo Registro";
+			this->btnNuevoRegistro->UseVisualStyleBackColor = true;
+			this->btnNuevoRegistro->Click += gcnew System::EventHandler(this, &frmRegistroAsistencia::btnNuevoRegistro_Click);
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Location = System::Drawing::Point(22, 105);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(32, 13);
+			this->label3->TabIndex = 8;
+			this->label3->Text = L"Inicio";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Location = System::Drawing::Point(258, 105);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(21, 13);
+			this->label4->TabIndex = 9;
+			this->label4->Text = L"Fin";
+			// 
+			// dtInicio
+			// 
+			this->dtInicio->Format = System::Windows::Forms::DateTimePickerFormat::Time;
+			this->dtInicio->Location = System::Drawing::Point(79, 102);
+			this->dtInicio->Name = L"dtInicio";
+			this->dtInicio->Size = System::Drawing::Size(93, 20);
+			this->dtInicio->TabIndex = 10;
+			// 
+			// dtFin
+			// 
+			this->dtFin->Format = System::Windows::Forms::DateTimePickerFormat::Time;
+			this->dtFin->Location = System::Drawing::Point(297, 102);
+			this->dtFin->Name = L"dtFin";
+			this->dtFin->Size = System::Drawing::Size(93, 20);
+			this->dtFin->TabIndex = 11;
+			// 
 			// frmRegistroAsistencia
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(614, 517);
+			this->Controls->Add(this->dtFin);
+			this->Controls->Add(this->dtInicio);
+			this->Controls->Add(this->label4);
+			this->Controls->Add(this->label3);
+			this->Controls->Add(this->btnNuevoRegistro);
 			this->Controls->Add(this->btnBuscarAlumno);
-			this->Controls->Add(this->dataGridView1);
+			this->Controls->Add(this->dgvLista);
 			this->Controls->Add(this->cmbDocente);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnGrabarRegistro);
 			this->Controls->Add(this->cmbCurso);
 			this->Controls->Add(this->label1);
 			this->Name = L"frmRegistroAsistencia";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"frmRegistroAsistencia";
 			this->Load += gcnew System::EventHandler(this, &frmRegistroAsistencia::frmRegistroAsistencia_Load);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvLista))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -200,6 +269,8 @@ namespace Evaluacion_T2 {
 	private: System::Void frmRegistroAsistencia_Load(System::Object^  sender, System::EventArgs^  e) {
 				 cargarComboBoxCurso();
 				 cargarComboBoxDocente();
+
+
 	}
 	private:void cargarComboBoxCurso(){
 				Dictionary<String^, String^> ^diccionarioCurso = gcnew Dictionary<String^, String^>();
@@ -259,9 +330,96 @@ namespace Evaluacion_T2 {
 
 					 Curso curso = buscarPilaCurso(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, codigoCurso);
 					 Docente docente = buscarPilaDocente(topePilaDocente, limitePilaDocente, PilaDocenteI, PilaDocenteF, codigoDocente);
+
+					 Registro registro;
+					 registro.unCurso = curso;
+					 registro.unDocente = docente;
+
+
+					 int ta = 0;
+					 NodoDAlumno *I, *D;
+					 I = NULL, D = NULL;
+
+					 //NodoDAlumno *AI, *AD;
+					 registro.I = registro.D = NULL;
+
+					 while (!estaVacia(topeAuxColaDAlumno))
+					 {
+						 Alumno ex = desenColarID(topeAuxColaDAlumno, ColaDAlumnoAuxI, ColaDAlumnoAuxD);
+
+						 String^ value = dgvLista[3, ta]->FormattedValue->ToString();
+
+						 int estado = -1;
+						 if (value == "Asistió")
+							 estado = 1;
+						 else if (value == "Tardanza")
+							 estado = 2;
+						 else if (value == "Falta")
+							 estado = 3;
+
+						 ex.estado = estado;
+
+						 enColarID(registro.tope, registro.lim, registro.I, registro.D, ex);
+
+						 enColarID(ta, limiteAuxColaDAlumno, I, D, ex);
+					 }
+
+					 registro.HI.hora = dtInicio->Value.Hour;
+					 registro.HI.minuto = dtInicio->Value.Minute;
+
+					 registro.HS.hora = dtFin->Value.Hour;
+					 registro.HS.minuto = dtFin->Value.Minute;
+
+					 registro.horas = DateTime(dtFin->Value.Ticks - dtInicio->Value.Ticks).Hour;
+
+					 string codigo = "R" + ZeroPadNumber(topeColaDRegistro + 1, 7);
+					 strcpy(registro.codigo, codigo.c_str());
+
+					 //TODO encolar Ordenadamente
+
+					 enColarID(topeColaDRegistro, limiteColaDRegistro, ColaDRegistroI, ColaDRegistroD, registro);
+
+					 topeAuxColaDAlumno = 0;
+					 ColaDAlumnoAuxI = ColaDAlumnoAuxD = NULL;
+					 this->Close();
+				 }
+	}
+	private: void mostrarLista() {
+				 dgvLista->Rows->Clear();
+				 int ta = 0;
+				 NodoDAlumno *I, *D;
+				 I = NULL, D = NULL;
+				 dgvLista->Rows->Clear();
+				 while (!estaVacia(topeAuxColaDAlumno))
+				 {
+					 Alumno ex = desenColarID(topeAuxColaDAlumno, ColaDAlumnoAuxI, ColaDAlumnoAuxD);
+					 dgvLista->Rows->Add(
+						 gcnew String(ex.codigo),
+						 gcnew String(ex.Apellido),
+						 gcnew String(ex.nombre)
+						 );
+
+					 enColarID(ta, limiteAuxColaDAlumno, I, D, ex);
+				 }
+				 while (!estaVacia(ta))
+				 {
+					 Alumno ex = desenColarID(ta, I, D);
+					 enColarID(topeAuxColaDAlumno, limiteAuxColaDAlumno, ColaDAlumnoAuxI, ColaDAlumnoAuxD, ex);
 				 }
 	}
 	private: System::Void btnBuscarAlumno_Click(System::Object^  sender, System::EventArgs^  e) {
+
+				 frmBuscarAlumno ^x = gcnew frmBuscarAlumno;
+				 x->ShowDialog();
+
+				 mostrarLista();
+
 	}
-};
+	private: System::Void btnNuevoRegistro_Click(System::Object^  sender, System::EventArgs^  e) {
+				 frmRegistroAsistencia ^x = gcnew frmRegistroAsistencia();
+				 x->Show();
+
+				 this->Close();
+	}
+	};
 }

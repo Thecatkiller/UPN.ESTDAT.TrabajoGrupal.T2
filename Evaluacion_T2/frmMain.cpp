@@ -17,14 +17,28 @@ NodoSDocente *PilaDocenteI, *PilaDocenteF;
 int limitePilaDocente = 200, topePilaDocente = 0;
 
 NodoDAlumno *ColaDAlumnoI, *ColaDAlumnoD;
-int limiteColaDAlumno = 100, topeColaDAlumno = 0;
+int limiteColaDAlumno = 10000, topeColaDAlumno = 0;
+
+
+NodoDRegistro *ColaDRegistroI, *ColaDRegistroD;
+int limiteColaDRegistro = 5000, topeColaDRegistro = 0;
+
+
+NodoDAlumno *ColaDAlumnoAuxI, *ColaDAlumnoAuxD;
+int limiteAuxColaDAlumno = 50, topeAuxColaDAlumno = 0;
 
 #include "funciones.h"
+
+#include "frmBuscarAlumno.h"
+
 
 #include "frmRegistroAlumno.h"
 #include "frmRegistroAsistencia.h"
 #include "frmRegistroDocente.h"
 #include "frmRegistroCurso.h"
+#include "frmReporteProfesor.h"
+#include "frmReporteAlumno.h"
+
 #include "frmMain.h"
 
 

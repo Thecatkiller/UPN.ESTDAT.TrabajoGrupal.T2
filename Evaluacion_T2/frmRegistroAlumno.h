@@ -195,14 +195,15 @@ namespace Evaluacion_T2 {
 				 }
 	}
 	private: System::Void btnRegistrar_Click(System::Object^  sender, System::EventArgs^  e) {
-				 string codigo = "C" + ZeroPadNumber(topeColaDAlumno + 1, 7);
-				 Alumno al = setAlumno(&codigo[0], StringToChar(txtNombres), StringToChar(txtApellidos), 0);
-				 EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, al);
-				 mostrarLista();
+				 if (txtNombres->Text->Trim() != "" && txtApellidos->Text->Trim() != ""){
+					 string codigo = "N" + ZeroPadNumber(topeColaDAlumno + 1, 7);
+					 Alumno al = setAlumno(&codigo[0], StringToChar(txtNombres), StringToChar(txtApellidos), 0);
+					 EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, al);
+					 mostrarLista();
+				 }
 	}
 	private: System::Void frmRegistroAlumno_Load(System::Object^  sender, System::EventArgs^  e) {
 				 mostrarLista();
-
 	}
 	};
 }

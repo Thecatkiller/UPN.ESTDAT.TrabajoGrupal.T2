@@ -87,6 +87,33 @@ void insertarNDDI(NodoDAlumno *&I, NodoDAlumno *&D, Alumno dato) {
 	}
 }
 
+
+void insertarNDID(NodoDRegistro *&I, NodoDRegistro *&D, Registro dato) {
+	NodoDRegistro *aux = new NodoDRegistro;
+	aux->dato = dato;
+	aux->izq = aux->der = NULL;
+	if (I == NULL && D == NULL) I = D = aux;
+	else {
+		D->der = aux;
+		aux->izq = D;
+		D = aux;
+		D->der = NULL;
+	}
+}
+
+void insertarNDDI(NodoDRegistro *&I, NodoDRegistro *&D, Registro dato) {
+	NodoDRegistro *aux = new NodoDRegistro;
+	aux->dato = dato;
+	aux->izq = aux->der = NULL;
+	if (I == NULL && D == NULL) I = D = aux;
+	else {
+		I->izq = aux;
+		aux->der = I;
+		I = aux;
+		I->izq = NULL;
+	}
+}
+
 #pragma endregion Insertar_Nodo_Doble
 
 #pragma region Pilas_Simples
@@ -199,6 +226,20 @@ void enColarID(int &tope, int limite, NodoDAlumno *&I, NodoDAlumno *&D, Alumno d
 }
 
 void enColarDI(int &tope, int limite, NodoDAlumno *&I, NodoDAlumno *&D, Alumno dato) {
+	if (!estaLlena(tope, limite)) {
+		insertarNDDI(I, D, dato);
+		tope++;
+	}
+}
+
+void enColarID(int &tope, int limite, NodoDRegistro *&I, NodoDRegistro *&D, Registro dato) {
+	if (!estaLlena(tope, limite)) {
+		insertarNDID(I, D, dato);
+		tope++;
+	}
+}
+
+void enColarDI(int &tope, int limite, NodoDRegistro *&I, NodoDRegistro *&D, Registro dato) {
 	if (!estaLlena(tope, limite)) {
 		insertarNDDI(I, D, dato);
 		tope++;
@@ -351,6 +392,30 @@ Docente buscarPilaDocente(int tope, int limite, NodoSDocente *&IniPila, NodoSDoc
 	{
 		Docente ex = desaPilar(ta, Ini, Fin);
 		apilar(tope, limite, IniPila, FinPila, ex);
+	}
+
+	return datoR;
+}
+
+Alumno buscarColaDAlumno(int tope, int limite, NodoDAlumno *&IniPila, NodoDAlumno *&FinPila, char* codigo){
+	Alumno datoR;
+
+	int ta = 0;
+	NodoDAlumno *Ini, *Fin;
+	Ini = NULL, Fin = NULL;
+
+	while (!estaVacia(tope))
+	{
+		Alumno ex = desenColarID(tope, IniPila, FinPila);
+		if (strcmp(ex.codigo, codigo) == 0)
+			datoR = ex;
+
+		enColarID(ta, limite, Ini, Fin, ex);
+	}
+	while (!estaVacia(ta))
+	{
+		Alumno ex = desenColarID(ta, Ini, Fin);
+		enColarID(tope, limite, IniPila, FinPila, ex);
 	}
 
 	return datoR;
