@@ -47,6 +47,7 @@ namespace Evaluacion_T2 {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  colCodigo;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  colNombre;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  colCreditos;
+	private: System::Windows::Forms::Button^  btnEliminar;
 
 	private:
 		/// <summary>
@@ -62,14 +63,15 @@ namespace Evaluacion_T2 {
 		void InitializeComponent(void)
 		{
 			this->dgvLista = (gcnew System::Windows::Forms::DataGridView());
+			this->colCodigo = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->colNombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->colCreditos = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnAgregar = (gcnew System::Windows::Forms::Button());
 			this->txtCreditos = (gcnew System::Windows::Forms::TextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->txtNombre = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->colCodigo = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->colNombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->colCreditos = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->btnEliminar = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvLista))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -87,6 +89,25 @@ namespace Evaluacion_T2 {
 			this->dgvLista->ReadOnly = true;
 			this->dgvLista->Size = System::Drawing::Size(430, 227);
 			this->dgvLista->TabIndex = 17;
+			// 
+			// colCodigo
+			// 
+			this->colCodigo->HeaderText = L"Código";
+			this->colCodigo->Name = L"colCodigo";
+			this->colCodigo->ReadOnly = true;
+			// 
+			// colNombre
+			// 
+			this->colNombre->HeaderText = L"Nombre";
+			this->colNombre->Name = L"colNombre";
+			this->colNombre->ReadOnly = true;
+			this->colNombre->Width = 180;
+			// 
+			// colCreditos
+			// 
+			this->colCreditos->HeaderText = L"Créditos";
+			this->colCreditos->Name = L"colCreditos";
+			this->colCreditos->ReadOnly = true;
 			// 
 			// btnAgregar
 			// 
@@ -130,30 +151,22 @@ namespace Evaluacion_T2 {
 			this->label1->TabIndex = 12;
 			this->label1->Text = L"Nombre";
 			// 
-			// colCodigo
+			// btnEliminar
 			// 
-			this->colCodigo->HeaderText = L"Código";
-			this->colCodigo->Name = L"colCodigo";
-			this->colCodigo->ReadOnly = true;
-			// 
-			// colNombre
-			// 
-			this->colNombre->HeaderText = L"Nombre";
-			this->colNombre->Name = L"colNombre";
-			this->colNombre->ReadOnly = true;
-			this->colNombre->Width = 180;
-			// 
-			// colCreditos
-			// 
-			this->colCreditos->HeaderText = L"Créditos";
-			this->colCreditos->Name = L"colCreditos";
-			this->colCreditos->ReadOnly = true;
+			this->btnEliminar->Location = System::Drawing::Point(367, 98);
+			this->btnEliminar->Name = L"btnEliminar";
+			this->btnEliminar->Size = System::Drawing::Size(75, 23);
+			this->btnEliminar->TabIndex = 18;
+			this->btnEliminar->Text = L"Eliminar";
+			this->btnEliminar->UseVisualStyleBackColor = true;
+			this->btnEliminar->Click += gcnew System::EventHandler(this, &frmRegistroCurso::btnEliminar_Click);
 			// 
 			// frmRegistroCurso
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(454, 371);
+			this->Controls->Add(this->btnEliminar);
 			this->Controls->Add(this->dgvLista);
 			this->Controls->Add(this->btnAgregar);
 			this->Controls->Add(this->txtCreditos);
@@ -216,5 +229,9 @@ namespace Evaluacion_T2 {
 	private: System::Void frmRegistroCurso_Load(System::Object^  sender, System::EventArgs^  e) {
 				 mostrarLista();
 	}
-	};
+	private: System::Void btnEliminar_Click(System::Object^  sender, System::EventArgs^  e) {
+				 desaPilar(topePilaCurso,PilaCursoI,PilaCursoF);
+				 mostrarLista();
+	}
+};
 }
