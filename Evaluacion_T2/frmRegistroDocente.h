@@ -232,10 +232,30 @@ namespace Evaluacion_T2 {
 					 String ^codigo = seleccionadas[0]->Cells[0]->Value->ToString();
 					 Docente docenteSeleccionado = buscarPilaDocente(topePilaDocente, limitePilaDocente, PilaDocenteI, PilaDocenteF, StringToChar(codigo));
 
+					 NodoSRegistro *listaRegistro = buscarRegistrosPorDocente(topeColaDRegistro, limiteColaDRegistro, ColaDRegistroI, ColaDRegistroD, docenteSeleccionado.codigo);
 
-					 //Implementar logica para borrar, preguntar si el docenteSeleccionado se encuentra registrado en un cola de docente
+					 if (listaRegistro == NULL){
+						 int ta = 0;
+						 NodoSDocente *Ini, *Fin;
+						 Ini = NULL, Fin = NULL;
+						 dgvLista->Rows->Clear();
+						 while (!estaVacia(topePilaDocente))
+						 {
+							 Docente ex = desaPilar(topePilaDocente, PilaDocenteI, PilaDocenteF);
+							 if (strcmpi(ex.codigo, docenteSeleccionado.codigo) != 0)
+								 apilar(ta, limitePilaDocente, Ini, Fin, ex);
+						 }
+						 while (!estaVacia(ta))
+						 {
+							 Docente ex = desaPilar(ta, Ini, Fin);
+							 apilar(topePilaDocente, limitePilaDocente, PilaDocenteI, PilaDocenteF, ex);
+						 }
+						 mostrarLista();
+					 }
+					 else{
+						 MessageBox::Show("No se puede eliminar al docente");
+					 }
 
-					 mostrarLista();
 				 }
 				 else{
 					 MessageBox::Show("Debe seleccionar una fila");

@@ -460,8 +460,8 @@ Alumno buscarColaDAlumno(int tope, int limite, NodoDAlumno *&IniPila, NodoDAlumn
 }
 
 Alumno* buscarAlumnoEnColaD(int tope, int limite, NodoDAlumno *&IniPila, NodoDAlumno *&FinPila, char* codigo){
-	Alumno *datoEncontrado = NULL;
-	//Alumno datoR;
+	Alumno *datoEncontrado = new Alumno;
+	datoEncontrado = NULL;
 
 	int ta = 0;
 	NodoDAlumno *Ini, *Fin;
@@ -471,8 +471,11 @@ Alumno* buscarAlumnoEnColaD(int tope, int limite, NodoDAlumno *&IniPila, NodoDAl
 	{
 		Alumno ex = desenColarID(tope, IniPila, FinPila);
 		if (strcmp(ex.codigo, codigo) == 0){
-			//datoR = ex;
-			datoEncontrado = &ex;
+			datoEncontrado = new Alumno;
+			strcpy(datoEncontrado->Apellido ,ex.Apellido);
+			strcpy(datoEncontrado->codigo, ex.codigo);
+			strcpy(datoEncontrado->nombre, ex.nombre);
+			datoEncontrado->estado = ex.estado;
 		}
 		enColarID(ta, limite, Ini, Fin, ex);
 	}
@@ -685,7 +688,7 @@ void EncolarRegistroOrdenadamente(int &tope, int limite, NodoDRegistro *&I, Nodo
 }
 
 void SetDefaultData(){
-	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "A", "5", 0));
+	/*EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "A", "5", 0));
 	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "A", "1", 0));
 	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "A", "7", 0));
 	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "A", "2", 0));
@@ -698,7 +701,7 @@ void SetDefaultData(){
 	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "B", "7", 0));
 	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "G", "7", 0));
 	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "F", "7", 0));
-	
+	*/
 	
 	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000001", "Cálculo I", 5));
 	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000002", "Cálculo II", 5));
@@ -712,16 +715,16 @@ void SetDefaultData(){
 	apilar(topePilaDocente, limitePilaDocente, PilaDocenteI, PilaDocenteF, setDocente("D00001", "Charles Dummar Camasca", 25));
 	apilar(topePilaDocente, limitePilaDocente, PilaDocenteI, PilaDocenteF, setDocente("D00002", "Paulo Cesar Olivares Taipe", 23));
 
-	//EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000001", "Diego Sebastián", "Calderón Alvarado", 0));
-	//EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000002", "Diego Sebastián", "Calderón Acuña", 0));
-	//EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "Diego Sebastián", "Calderón Acua", 0));
-	//EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000004", "Diego Sebastián", "Calderón Alvarez", 0));
-	//EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000005", "Diego Sebastián", "Quezada Perez", 0));
-	//EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000006", "Diego Sebastián", "Calderón Zambrano", 0));
-	//EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000007", "Alfonso Giampierre", "Rios Rodriguez", 0));
-	//EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000008", "Brenda Solanch", "Encarnacion Quiroz", 0));
-	//EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000009", "Bryan Martin", "Chilque Antayhua", 0));
-	//EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000009", "Diego Fernando", "Calderón Alvarado", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000001", "Diego Sebastián", "Calderón Alvarado", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000002", "Diego Sebastián", "Calderón Acuña", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "Diego Sebastián", "Calderón Acua", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000004", "Diego Sebastián", "Calderón Alvarez", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000005", "Diego Sebastián", "Quezada Perez", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000006", "Diego Sebastián", "Calderón Zambrano", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000007", "Alfonso Giampierre", "Rios Rodriguez", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000008", "Brenda Solanch", "Encarnacion Quiroz", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000009", "Bryan Martin", "Chilque Antayhua", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000010", "Diego Fernando", "Calderón Alvarado", 0));
 
 
 

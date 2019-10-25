@@ -260,6 +260,8 @@ namespace Evaluacion_T2 {
 										 tardanzas++;
 									 else if (alumnoBuscar->estado == 3)
 										 faltas++;
+
+									 
 								 }
 							 }
 						 }
@@ -276,6 +278,8 @@ namespace Evaluacion_T2 {
 							 faltas + "",
 							 faltasTotales + ""
 							 );
+
+						 alumnoBuscar = NULL;
 					 }
 					 enColarID(ta, limiteColaDAlumno, I, D, ex);
 				 }
