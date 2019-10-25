@@ -220,10 +220,31 @@ namespace Evaluacion_T2 {
 					 setDocente(&codigo[0], StringToChar(txtNombre), Convert::ToDouble(txtSueldoPorHora->Text)));
 				 limpiarCampos();
 				 mostrarLista();
+
+
+
 	}
 	private: System::Void btnEliminar_Click(System::Object^  sender, System::EventArgs^  e) {
-				 desaPilar(topePilaDocente, PilaDocenteI, PilaDocenteF);
-				 mostrarLista();
+
+				 System::Windows::Forms::DataGridViewSelectedRowCollection ^seleccionadas = dgvLista->SelectedRows;
+
+				 if (seleccionadas->Count == 1){
+					 String ^codigo = seleccionadas[0]->Cells[0]->Value->ToString();
+					 Docente docenteSeleccionado = buscarPilaDocente(topePilaDocente, limitePilaDocente, PilaDocenteI, PilaDocenteF, StringToChar(codigo));
+
+
+					 //Implementar logica para borrar, preguntar si el docenteSeleccionado se encuentra registrado en un cola de docente
+
+					 mostrarLista();
+				 }
+				 else{
+					 MessageBox::Show("Debe seleccionar una fila");
+				 }
+
+
+
+
+
 	}
-};
+	};
 }
