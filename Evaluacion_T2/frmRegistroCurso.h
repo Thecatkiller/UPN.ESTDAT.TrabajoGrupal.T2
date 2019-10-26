@@ -19,13 +19,13 @@ namespace Evaluacion_T2 {
 		{
 			InitializeComponent();
 			//
-			//TODO: agregar código de constructor aquí
+			//TODO: agregar cÃ³digo de constructor aquÃ­
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Limpiar los recursos que se estén utilizando.
+		/// Limpiar los recursos que se estÃ©n utilizando.
 		/// </summary>
 		~frmRegistroCurso()
 		{
@@ -51,14 +51,14 @@ namespace Evaluacion_T2 {
 
 	private:
 		/// <summary>
-		/// Variable del diseñador requerida.
+		/// Variable del diseÃ±ador requerida.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Método necesario para admitir el Diseñador. No se puede modificar
-		/// el contenido del método con el editor de código.
+		/// MÃ©todo necesario para admitir el DiseÃ±ador. No se puede modificar
+		/// el contenido del mÃ©todo con el editor de cÃ³digo.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -92,7 +92,7 @@ namespace Evaluacion_T2 {
 			// 
 			// colCodigo
 			// 
-			this->colCodigo->HeaderText = L"Código";
+			this->colCodigo->HeaderText = L"CÃ³digo";
 			this->colCodigo->Name = L"colCodigo";
 			this->colCodigo->ReadOnly = true;
 			// 
@@ -105,7 +105,7 @@ namespace Evaluacion_T2 {
 			// 
 			// colCreditos
 			// 
-			this->colCreditos->HeaderText = L"Créditos";
+			this->colCreditos->HeaderText = L"CrÃ©ditos";
 			this->colCreditos->Name = L"colCreditos";
 			this->colCreditos->ReadOnly = true;
 			// 
@@ -133,7 +133,7 @@ namespace Evaluacion_T2 {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(45, 13);
 			this->label2->TabIndex = 14;
-			this->label2->Text = L"Créditos";
+			this->label2->Text = L"CrÃ©ditos";
 			// 
 			// txtNombre
 			// 
@@ -230,8 +230,40 @@ namespace Evaluacion_T2 {
 				 mostrarLista();
 	}
 	private: System::Void btnEliminar_Click(System::Object^  sender, System::EventArgs^  e) {
-				 desaPilar(topePilaCurso,PilaCursoI,PilaCursoF);
-				 mostrarLista();
+				  System::Windows::Forms::DataGridViewSelectedRowCollection ^seleccionadas = dgvLista->SelectedRows;
+
+				 if (seleccionadas->Count == 1){
+					 String ^codigo = seleccionadas[0]->Cells[0]->Value->ToString();
+					 Curso cursoSeleccionado = buscarPilaCurso(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, StringToChar(codigo));
+
+					 NodoSRegistro *listaRegistro = buscarRegistrosPorCurso(topeColaDRegistro, limiteColaDRegistro, ColaDRegistroI, ColaDRegistroD, cursoSeleccionado.codigo);
+
+					 if (listaRegistro == NULL){
+						 int ta = 0;
+						 NodoSCurso *Ini, *Fin;
+						 Ini = NULL, Fin = NULL;
+						 dgvLista->Rows->Clear();
+						 while (!estaVacia(topePilaCurso))
+						 {
+							 Curso ex = desaPilar(topePilaCurso, PilaCursoI, PilaCursoF);
+							 if (strcmpi(ex.codigo, cursoSeleccionado.codigo) != 0)
+								 apilar(ta, limitePilaCurso, Ini, Fin, ex);
+						 }
+						 while (!estaVacia(ta))
+						 {
+							 Curso ex = desaPilar(ta, Ini, Fin);
+							 apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, ex);
+						 }
+						 mostrarLista();
+					 }
+					 else{
+						 MessageBox::Show("No se puede eliminar el curso");
+					 }
+
+				 }
+				 else{
+					 MessageBox::Show("Debe seleccionar una fila");
+				 }
 	}
 };
 }
