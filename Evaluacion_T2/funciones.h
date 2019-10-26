@@ -520,6 +520,38 @@ NodoSRegistro* buscarRegistrosPorDocente(int tope, int limite, NodoDRegistro *&I
 	return lRegistroIni;
 }
 
+NodoSRegistro* buscarRegistrosPorCurso(int tope, int limite, NodoDRegistro *&IniPila, NodoDRegistro *&FinPila, char* codigoCurso){
+
+	NodoSRegistro* lRegistroIni = NULL;
+	NodoSRegistro* lRegistroFin = NULL;
+	int lAux = limite;
+	int topeAux = 0;
+
+	Registro datoR;
+
+	int ta = 0;
+	NodoDRegistro *Ini, *Fin;
+	Ini = NULL, Fin = NULL;
+
+	while (!estaVacia(tope))
+	{
+		Registro ex = desenColarID(tope, IniPila, FinPila);
+		if (strcmp(ex.unCurso.codigo, codigoCurso) == 0)
+		{
+			enColar(topeAux, lAux, lRegistroIni, lRegistroFin, ex);
+		}
+
+		enColarID(ta, limite, Ini, Fin, ex);
+	}
+	while (!estaVacia(ta))
+	{
+		Registro ex = desenColarID(ta, Ini, Fin);
+		enColarID(tope, limite, IniPila, FinPila, ex);
+	}
+
+	return lRegistroIni;
+}
+
 #pragma endregion Busquedas
 
 #pragma region Comparacion
@@ -538,8 +570,8 @@ int compararElementos(Alumno al1, Alumno al2)
 
 int compararElementos(Registro r1, Registro r2)
 {
-	long f1 = DateTime(r1.HI.año, r1.HI.mes, r1.HI.dia, r1.HI.hora, r1.HI.minuto, 0).Ticks;
-	long f2 = DateTime(r1.HS.año, r1.HS.mes, r1.HS.dia, r1.HS.hora, r1.HS.minuto, 0).Ticks;
+	long f1 = DateTime(r1.HI.aÃ±o, r1.HI.mes, r1.HI.dia, r1.HI.hora, r1.HI.minuto, 0).Ticks;
+	long f2 = DateTime(r1.HS.aÃ±o, r1.HS.mes, r1.HS.dia, r1.HS.hora, r1.HS.minuto, 0).Ticks;
 
 	if (f1 < f2){
 		return -1;
@@ -703,28 +735,28 @@ void SetDefaultData(){
 	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "F", "7", 0));
 	*/
 	
-	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000001", "Cálculo I", 5));
-	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000002", "Cálculo II", 5));
-	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000003", "Cálculo III", 5));
-	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000004", "Fundamentos de Programación", 5));
+	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000001", "CÃ¡lculo I", 5));
+	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000002", "CÃ¡lculo II", 5));
+	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000003", "CÃ¡lculo III", 5));
+	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000004", "Fundamentos de ProgramaciÃ³n", 5));
 	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000005", "Estructura de Datos", 4));
 	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000006", "Base de datos", 4));
 	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000007", "Taller de base de datos", 4));
-	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000008", "Técnicas de programación orientada a objetos", 4));
+	apilar(topePilaCurso, limitePilaCurso, PilaCursoI, PilaCursoF, setCurso("C0000008", "TÃ©cnicas de programaciÃ³n orientada a objetos", 4));
 
 	apilar(topePilaDocente, limitePilaDocente, PilaDocenteI, PilaDocenteF, setDocente("D00001", "Charles Dummar Camasca", 25));
 	apilar(topePilaDocente, limitePilaDocente, PilaDocenteI, PilaDocenteF, setDocente("D00002", "Paulo Cesar Olivares Taipe", 23));
 
-	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000001", "Diego Sebastián", "Calderón Alvarado", 0));
-	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000002", "Diego Sebastián", "Calderón Acuña", 0));
-	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "Diego Sebastián", "Calderón Acua", 0));
-	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000004", "Diego Sebastián", "Calderón Alvarez", 0));
-	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000005", "Diego Sebastián", "Quezada Perez", 0));
-	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000006", "Diego Sebastián", "Calderón Zambrano", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000001", "Diego SebastiÃ¡n", "CalderÃ³n Alvarado", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000002", "Diego SebastiÃ¡n", "CalderÃ³n AcuÃ±a", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000003", "Diego SebastiÃ¡n", "CalderÃ³n Acua", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000004", "Diego SebastiÃ¡n", "CalderÃ³n Alvarez", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000005", "Diego SebastiÃ¡n", "Quezada Perez", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000006", "Diego SebastiÃ¡n", "CalderÃ³n Zambrano", 0));
 	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000007", "Alfonso Giampierre", "Rios Rodriguez", 0));
 	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000008", "Brenda Solanch", "Encarnacion Quiroz", 0));
 	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000009", "Bryan Martin", "Chilque Antayhua", 0));
-	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000010", "Diego Fernando", "Calderón Alvarado", 0));
+	EncolarAlumnoOrdenadamente(topeColaDAlumno, limiteColaDAlumno, ColaDAlumnoI, ColaDAlumnoD, setAlumno("N0000010", "Diego Fernando", "CalderÃ³n Alvarado", 0));
 
 
 
